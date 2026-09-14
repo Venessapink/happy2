@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Bangers&display=swap');
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #000;
+font-family: "Oswald", sans-serif;
+}
+
+.dıs_alan {
+width: 100%;
+max-width: 1000px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.container {
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+/**** ORMAN GÖRSELİ ****/
+.images {
+width: 100%;
+position: relative;
+overflow: hidden;
+border-radius: 12px;
+}
+
+.images img {
+width: 100%;
+height: auto;
+max-width: 100%;
+display: block;
+border-radius: 12px;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+
+/**** PERDE GERİ SAYIM ****/
+.geri-sayim {
+position: absolute;
+left: 50%;
+top: 34%;
+width: 15%;
+aspect-ratio: 16 / 9;
+transform: translate(-50%, -50%);
+z-index: 10;
+display: flex;
+align-items: center;
+justify-content: center;
+border: none;
+overflow: hidden;
+transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.geri-sayim .sayi {
+color: rgba(35, 35, 35, 0.88);
+font-family: "Oswald", sans-serif;
+font-size: clamp(5px, 5vw, 55px);
+font-weight: 500;
+line-height: 1;
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+animation: sinemaSayisi 2s ease-in-out forwards;
+}
+
+.geri-sayim.sakla {
+opacity: 0;
+transform: translate(-50%, -50%) scale(1.04);
+pointer-events: none;
+}
+
+@keyframes sinemaSayisi {
+    0% { opacity: 0; transform: scale(1.18); }
+    15% { opacity: 1; transform: scale(1); }
+    72% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.96); }
+}
+
+
+
+/**** PERDE VİDEO ****/
+.perde-video {
+position: absolute;
+left: 50%;
+top: 34%;
+width: 17%;
+aspect-ratio: 16 / 9;
+transform: translate(-50%, -50%);
+z-index: 5;
+overflow: hidden;
+opacity: 0;
+transition: opacity 1.2s ease;
+pointer-events: none;
+}
+
+.perde-video.aktif {
+opacity: 1;
+animation: projektor 4s ease-in-out infinite;
+}
+
+.perde-video video {
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+border: none;
+outline: none;
+border-radius: 1px;
+background: transparent;
+}
+
+@keyframes projektor {
+0% { filter: brightness(0.84) contrast(0.91); }
+50% { filter: brightness(0.96) contrast(0.96); }
+100% { filter: brightness(0.86) contrast(0.92); }
+}
+
+.perde-alani {
+position: absolute;
+top: 34%;
+left: 50%;
+width: 55%;
+height: 30%;
+transform: translate(-50%, -50%) perspective(1000px) rotateX(2deg);
+z-index: 6;
+overflow: hidden;
+pointer-events: none;
+display: none; 
+}
+
+.perde-alani.aktif-alan {
+display: block;
+}
+
+.kutlama-yazisi {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 100%;
+text-align: center;
+opacity: 0;
+transition: opacity 0.8s ease;
+z-index: 10;
+}
+
+.kutlama-yazisi.aktif {
+opacity: 1;
+animation: yaziTitreme 3s ease-in-out infinite;
+}
+
+.kutlama-yazisi h1 {
+font-family: "Bangers", cursive;
+font-size: clamp(18px, 5vw, 20px);
+color: #010101;
+line-height: 1.3;
+text-transform: uppercase;
+margin: 0;
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+@keyframes yaziTitreme {
+0% {opacity: 1;}
+50% {opacity: 0.85;}
+100% {opacity: 1}
+}
+
+/**** Mobilde gizle ****/
+@media (max-width: 640px) {
+.perde-alani { display: none !important; }
+}
+
+
+/**** PERDE IŞIĞI ****/
+.perde-isigi {
+position: absolute;
+left: 50%;
+top: 50%;
+width: 50%;
+aspect-ratio: 16 / 9;
+transform: translate(-50%, -50%);
+z-index: 10;
+pointer-events: none;
+opacity: 0;
+Background: radial-gradient(ellipse, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.07) 35%, rgba(255,255,255,0) 72%);
+filter: blur(8px);
+transition: opacity 1.5s ease;
+}
+
+.perde-isigi.aktif {
+opacity: 1;
+animation: perdeIsigi 4s ease-in-out infinite;
+}
+
+
+@keyframes perdeIsigi {
+0% { opacity: 0.35; }
+50% { opacity: 0.65; }
+100% { opacity: 0.4; }
+}
+
+.siyah-perde {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: #000;
+z-index: 9999; 
+opacity: 0;
+pointer-events: none;
+transition: opacity 2s ease; /*** karartma ***/
+}
+
+.siyah-perde.aktif {
+opacity: 1;
+pointer-events: all;
+}
+
+
+/****  MOBİL UYARI ****/
+.mobile-message {
+display: none;
+text-align: center;
+padding: 2.5rem 3rem;
+background: repeating-linear-gradient(45deg, #1a0000 0px, #1a0000 10px, #2d0000 10px,#2d0000 20px);
+
+border: 8px solid #ff0000;
+border-radius: 0;
+position: relative;
+box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 50px rgba(255, 0, 0, 0.2), 0 0 80px rgba(255, 0, 0, 0.3);
+transform: rotate(-1deg);
+animation: pulseBorder 1.2s ease-in-out infinite alternate;
+width: 100%;
+max-width: 550px;
+}
+
+.mobile-message::before {
+content: '';
+position: absolute;
+top: -12px;
+left: -12px;
+right: -12px;
+bottom: -12px;
+background: transparent;
+border: 4px solid rgba(255, 0, 0, 0.3);
+pointer-events: none;
+animation: glowBorder 0.8s ease-in-out infinite alternate;
+}
+
+.mobile-message .uyari-baslik {
+font-family: "Bangers", cursive;
+font-size: 1.8rem;
+color: #ffcc00;
+text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3);
+letter-spacing: 4px;
+background: rgba(0, 0, 0, 0.7);
+padding: 0.3rem 1.5rem;
+display: inline-block;
+border: 2px solid #ffcc00;
+margin-bottom: 1.2rem;
+text-transform: uppercase;
+}
+
+.mobile-message .uyari-telefon {
+font-family: "Oswald", sans-serif;
+font-weight: 700;
+font-size: 2.8rem;
+color: #ffffff;
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 0, 0, 0.5);
+letter-spacing: 6px;
+text-transform: uppercase;
+background: rgba(0, 0, 0, 0.5);
+padding: 0.2rem 1rem;
+display: block;
+margin-bottom: 1.5rem;
+}
+
+.mobile-message .uyari-ruh-hastası {
+font-family: "Bangers", cursive;
+font-size: 5rem;
+color: #ff0000;
+text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.6), 0 0 80px rgba(255, 0, 0, 0.4);
+letter-spacing: 10px;
+line-height: 1.3;
+display: block;
+animation: textFlicker 0.1s ease-in-out infinite alternate;
+-webkit-text-stroke: 2px #8b0000;
+}
+
+.mobile-message .uyari-alt {
+font-family: "Oswald", sans-serif;
+font-weight: 600;
+font-size: 1.2rem;
+color: #ff4444;
+text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+letter-spacing: 3px;
+margin-top: 1rem;
+border-top: 2px solid rgba(255, 0, 0, 0.3);
+padding-top: 0.8rem;
+text-transform: uppercase;
+}
+
+@keyframes pulseBorder {
+0% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 50px rgba(255, 0, 0, 0.2), 0 0 80px rgba(255, 0, 0, 0.3); border-color: #ff0000; }
+100% { box-shadow: 0 0 60px rgba(255, 0, 0, 1), inset 0 0 80px rgba(255, 0, 0, 0.4), 0 0 120px rgba(255, 0, 0, 0.5); border-color: #ff4444; }
+}
+
+@keyframes glowBorder {
+0% { opacity: 0.4; transform: scale(1); }
+100% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes textFlicker {
+0% { opacity: 1; }
+100% { opacity: 0.85; }
+}
+
+@media (max-width: 640px) {
+.images { display: none; }
+.mobile-message { display: block; margin: 0 1rem; padding: 2rem 1.5rem; transform: rotate(0deg); }
+.mobile-message .uyari-baslik { font-size: 1.3rem; padding: 0.2rem 1rem; }
+.mobile-message .uyari-telefon { font-size: 2rem; letter-spacing: 4px; margin-bottom: 1.2rem; }
+.mobile-message .uyari-ruh-hastası { font-size: 3.8rem; letter-spacing: 6px; -webkit-text-stroke: 1.5px #8b0000; line-height: 1.2; }
+.mobile-message .uyari-alt { font-size: 1rem; }
+}
+
+@media (max-width: 400px) {
+.mobile-message { padding: 1.5rem 1rem; }
+.mobile-message .uyari-ruh-hastası { font-size: 2.8rem; letter-spacing: 4px; line-height: 1.1; }
+.mobile-message .uyari-telefon { font-size: 1.5rem; margin-bottom: 1rem; }
+}

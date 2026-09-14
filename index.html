@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+        rel="website icon"
+        type="png"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmHvBwLSHzo8lJkUe7MxRA9Ic_yNaUzg4TTlkbGYXmQw&s=10"
+    />
+    <link rel="stylesheet" href="style.css">
+
+    <title>ÇAKMA KARADENİZLİ :) </title>
+
+</head>
+
+<body>
+
+  <div class="dıs_alan">
+        <div class="container">
+
+            <!-- SİNEMA SAHNESİ -->
+            <div class="images">
+
+                <!-- ARKA PLAN -->
+                <img src="images/forest_img.jpg" alt="Orman manzarası" />
+
+                <!-- PROJEKTÖR IŞIĞI -->
+                <div class="perde-isigi" id="perdeIsigi"></div>
+
+                <!-- GERİ SAYIM -->
+                <div class="geri-sayim" id="geriSayim">
+                    <span class="sayi" id="sayi">5</span>
+                </div>
+
+                <!-- MP4 VİDEO -->
+                <div class="perde-video" id="videoAlani">
+                    <video id="birthdayVideo" preload="auto" playsinline muted>
+                        <source src="images/video.mp4" type="video/mp4" />
+                    </video>
+                </div>
+
+                <!-- PERDE ALANI -->
+                <div class="perde-alani" id="perdeAlani">
+                    <div class="kutlama-yazisi" id="yazi1">
+                        <h1>İYİ Kİ DOĞDUN<br>RUH HASTASI...</h1>
+                    </div>
+                    <div class="kutlama-yazisi" id="yazi2">
+                        <h1>ÜMMÜ İLE<br>MUTLULUKLAR</h1>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TELEFON UYARISI -->
+            <div class="mobile-message">
+                <span class="uyari-telefon">Telefondan Bakma</span>
+                <span class="uyari-ruh-hastası">
+                    RUH
+                    <br />
+                    HASTASI
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    
+    <!--- YENİ PERDE --->
+    <div class="siyah-perde" id="siyahPerde"></div>
+
+    <script>
+         const geriSayim = document.getElementById("geriSayim");
+        const sayi = document.getElementById("sayi");
+        const videoAlani = document.getElementById("videoAlani");
+        const video = document.getElementById("birthdayVideo");
+        const perdeIsigi = document.getElementById("perdeIsigi");
+        
+       
+        const perdeAlani = document.getElementById("perdeAlani");
+        const yazi1 = document.getElementById("yazi1");
+        const yazi2 = document.getElementById("yazi2");
+        const siyahPerde = document.getElementById("siyahPerde");
+
+        let sayac = 5;
+
+        function sayiyiGoster() {
+            sayi.classList.remove("sayi");
+            void sayi.offsetWidth;
+            sayi.classList.add("sayi");
+            sayi.textContent = sayac;
+        }
+
+        sayiyiGoster();
+
+       const sayacTimer = setInterval(() => {
+            sayac--;
+
+            if (sayac > 0) {
+                sayiyiGoster();
+            } else {
+                clearInterval(sayacTimer);
+                geriSayim.classList.add("sakla");
+                videoAlani.classList.add("aktif");
+                perdeIsigi.classList.add("aktif");
+
+                video.currentTime = 0;
+                video.playbackRate = 2; // hız
+                video.play()
+                    .catch(() => {
+                        video.muted = true;
+                        video.play();
+                    });
+            }
+        }, 2000);
+
+        // VİDEO BİTTİ YENİ AKIŞ
+        video.addEventListener("ended", () => {
+            
+            // Eski akışı durdur 
+            video.pause();
+            videoAlani.classList.remove("aktif");
+            perdeIsigi.classList.remove("aktif");
+
+            // 1. Perde alanını aktif et
+            perdeAlani.classList.add("aktif-alan");
+
+            // 2. İlk 5 saniye
+            sayac = 5;
+            sayiyiGoster();
+            geriSayim.classList.remove("sakla"); // Geri sayımı tekrar aç
+
+            let timer1 = setInterval(() => {
+                sayac--;
+
+                if (sayac > 0) {
+                    sayiyiGoster();
+                } else {
+                    clearInterval(timer1);
+                    geriSayim.classList.add("sakla");
+
+                    // 3. İYİ Kİ DOĞDUN yazısını göster
+                    yazi1.classList.add("aktif");
+
+                    // 4. 5 saniye sonra yazıyı gizle yeni sayaç
+                    setTimeout(() => {
+                        yazi1.classList.remove("aktif");
+
+                        sayac = 5;
+                        sayiyiGoster();
+                        geriSayim.classList.remove("sakla");
+
+                        let timer2 = setInterval(() => {
+                            sayac--;
+
+                            if (sayac > 0) {
+                                sayiyiGoster();
+                            } else {
+                                clearInterval(timer2);
+                                geriSayim.classList.add("sakla");
+
+                                // 5. YAZIYI GÖSTER 
+                                yazi2.classList.add("aktif");
+
+                                // 6. 3 saniye sonra ekranı simsiyah yap
+                                setTimeout(() => {
+                                    siyahPerde.classList.add("aktif");
+                                }, 2000);
+
+                            }
+                        }, 2000);
+
+                    }, 2000); 
+                }
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html>
